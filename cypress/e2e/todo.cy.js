@@ -33,7 +33,42 @@ describe('Agregar tareas', () => {
 
 
 
-    it.only('Agregar tareas a la lista completadas y no completadas', () => {
+    it('Editar tarea', () => {
+
+        cy.visit('https://todomvc.com/examples/react/dist/')
+        cy.get('.new-todo').type('Tarea 1{enter}')
+        cy.get('[data-testid="todo-item-label"]').contains('Tarea 1')
+        cy.get('[data-testid="todo-item-label"]').dblclick()
+        cy.get('input').filter('[value="Tarea 1"]').clear().type('Tarea 2')      
+
+})
+
+
+    it('Editar tarea', () => {
+
+    cy.visit('https://todomvc.com/examples/react/dist/')
+    cy.get('.new-todo').type('Tarea 1{enter}')
+    cy.get('[data-testid="todo-item-label"]').contains('Tarea 1')
+    cy.get('[data-testid="todo-item-label"]').dblclick()
+    cy.get('.view > .input-container > [data-testid="text-input"]').clear().type('Tarea 2{enter}')
+    
+
+})
+
+
+it('Borrar tarea', () => {
+
+    cy.visit('https://todomvc.com/examples/react/dist/')
+    cy.get('.new-todo').type('Tarea 1{enter}')
+    cy.get('.todo-list li').first().find('.destroy').click({ force: true })
+    cy.get('.todo-list').should('not.contain', 'Tarea 1')
+    
+   
+  
+  
+  })
+
+    it('Agregar tareas a la lista completadas y no completadas', () => {
 
         cy.visit('https://todomvc.com/examples/react/dist/')
         cy.get('.new-todo').type('Tarea 1{enter}')
@@ -45,28 +80,20 @@ describe('Agregar tareas', () => {
         cy.get('[data-testid="footer-navigation"] > :nth-child(3) > a').click()
         cy.get(':nth-child(1) > .view > [data-testid="todo-item-label"]').contains('Tarea 1')
         cy.get(':nth-child(2) > .view > [data-testid="todo-item-label"]').contains('Tarea 3')
+        cy.get('[data-testid="footer-navigation"] > :nth-child(2) > a').click()
+        cy.get(':nth-child(1) > .view > [data-testid="todo-item-label"]').contains('Tarea 2')
+        cy.get(':nth-child(2) > .view > [data-testid="todo-item-label"]').contains('Tarea 4')
         cy.get('[data-testid="footer-navigation"] > :nth-child(1) > a').click()
+        cy.get(':nth-child(1) > .view > [data-testid="todo-item-label"]').contains('Tarea 1')
+        cy.get(':nth-child(2) > .view > [data-testid="todo-item-label"]').contains('Tarea 2')
+        cy.get(':nth-child(3) > .view > [data-testid="todo-item-label"]').contains('Tarea 3')
+        cy.get(':nth-child(4) > .view > [data-testid="todo-item-label"]').contains('Tarea 4')
+
 
 
 
     })
 
-
-
-
-
-
-
-
-    it('Editar tarea', () => {
-
-        cy.visit('https://todomvc.com/examples/react/dist/')
-        cy.get('.new-todo').type('Tarea 1{enter}')
-        cy.get('[data-testid="todo-item-label"]').contains('Tarea 1')
-        cy.get('[data-testid="todo-item-label"]').dblclick()
-        cy.get('input').filter('[value="Tarea 1"]').clear().type('Tarea 2')      
-
-})
 
 
 
